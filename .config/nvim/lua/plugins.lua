@@ -45,6 +45,14 @@ return require("packer").startup(function()
 	use {'kyazdani42/nvim-web-devicons', event = 'VimEnter'}
 	use { 'nvim-lualine/lualine.nvim', event = 'VimEnter', config = [[require('config.lualine')]]}
 
+  -- Fast buffer jumping with Hop
+  use {
+    "phaazon/hop.nvim",
+    event = "VimEnter",
+    config = function()
+      vim.defer_fn(function() require('config.hop') end, 2000)
+    end
+  }
 	
 	-- Themes
 	use { 'sainnhe/everforest',}
