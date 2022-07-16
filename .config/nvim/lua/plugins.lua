@@ -38,6 +38,9 @@ return require("packer").startup(function()
 	-- LSP Config
 	use {"neovim/nvim-lspconfig",after = "cmp-nvim-lsp", config = [[require "config.lsp"]]}
 
+  -- Treesitter
+  use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require("config.treesitter")]] }
+
 	-- Lua Line
 	use {'kyazdani42/nvim-web-devicons', event = 'VimEnter'}
 	use { 'nvim-lualine/lualine.nvim', event = 'VimEnter', config = [[require('config.lualine')]]}
