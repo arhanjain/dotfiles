@@ -104,4 +104,4 @@ prompt pure
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Aliases
-alias ls="ls -lha"
+alias ls="ls -lha --color=auto"
