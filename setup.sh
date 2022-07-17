@@ -26,7 +26,7 @@ setup_nvim ()  {
       failed Neovim
       return
     else
-      rm "$HOME/nvim.appimage"
+      rm "$SCRIPT_DIR/nvim.appimage"
       echo "Neovim installed"
     fi
   else
