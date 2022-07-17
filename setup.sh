@@ -19,7 +19,7 @@ setup_nvim ()  {
     wget -P "$SCRIPT_DIR/" "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
     chmod +x "$SCRIPT_DIR/nvim.appimage"
     "$PWD/nvim.appimage" --appimage-extract
-    mv "$/squashfs-root/" /opt/neovim/
+    mv "$PWD/squashfs-root/" /opt/neovim/
     ln -s /opt/neovim/AppRun /usr/bin/nvim
 
     if ! command -v nvim &> /dev/null; then
