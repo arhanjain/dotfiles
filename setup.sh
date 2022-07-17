@@ -9,21 +9,21 @@ nvim_config_path="$HOME/.config/nvim"
 zshrc_path="$HOME/.zshrc"
 
 failed () {
-  echo "$1 setup failed."
+  echo "$1 setup failed. Please debug installation or file an issue at arhanjain/dotfiles"
 }
 
 setup_nvim ()  {
   if ! command -v nvim &> /dev/null; then
     echo "Neovim not found."
     echo "Installing Neovim..."
-    wget -P "$HOME/" "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
-    chmod +x "$HOME/nvim.appimage"
-    "$HOME/nvim.appimage" --appimage-extract
-    mv "$HOME/squashfs-root/" /opt/neovim/
+    wget -P "$SCRIPT_DIR/" "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+    chmod +x "$SCRIPT_DIR/nvim.appimage"
+    "$PWD/nvim.appimage" --appimage-extract
+    mv "$/squashfs-root/" /opt/neovim/
     ln -s /opt/neovim/AppRun /usr/bin/nvim
 
     if ! command -v nvim &> /dev/null; then
-      echo "Neovim install failed. Please debug installation process or file an issue at arhanjain/dotfiles."
+      failed Neovim
       return
     else
       rm "$HOME/nvim.appimage"
