@@ -10,3 +10,4 @@ TODO
 - automatic setup from start to finish
 - more nvim plugins
 - any theme or aesthetic changes to the OS (orchid theme maybe)
+- find better suited colors for nvim hop (try to match the demo img maybe)

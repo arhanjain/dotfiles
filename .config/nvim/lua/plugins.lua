@@ -55,9 +55,9 @@ return require("packer").startup(function()
   }
 	
 	-- Themes
-	use { 'sainnhe/everforest',}
+	use { 'sainnhe/everforest'}
 	use { 'projekt0n/github-nvim-theme', opt = true }
-	use {'EdenEast/nightfox.nvim', opt = true }
+	use {'EdenEast/nightfox.nvim'}
 	
 
 end)

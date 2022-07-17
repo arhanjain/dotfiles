@@ -13,14 +13,34 @@ failed () {
 }
 
 setup_nvim ()  {
+  if ! command -v nvim &> /dev/null; then
+    echo "Neovim not found."
+    echo "Installing Neovim..."
+    wget -P "$HOME/" "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+    chmod +x "$HOME/nvim.appimage"
+    "$HOME/nvim.appimage" --appimage-extract
+    mv "$HOME/squashfs-root/" /opt/neovim/
+    ln -s /opt/neovim/AppRun /usr/bin/nvim
+
+    if ! command -v nvim &> /dev/null; then
+      echo "Neovim install failed. Please debug installation process or file an issue at arhanjain/dotfiles."
+      return
+    else
+      rm "$HOME/nvim.appimage"
+      echo "Neovim installed"
+    fi
+  else
+    echo "Neovim found."
+  fi
+
   echo "Setting up Neovim..."
+
   if [ -d "$nvim_config_path" ]; then
     echo "Neovim config directory already exists!"
     failed Neovim
   else
     mkdir -p "$HOME/.config"
     ln -s "$SCRIPT_DIR/.config/nvim" "$nvim_config_path"
-    echo "Created symbolic link at $nvim_config_path"
   fi
 }
 
