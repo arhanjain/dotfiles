@@ -59,6 +59,7 @@ setup_nvim ()  {
   echo "Installing pyright..."
   npm i -g pyright
 
+  nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
 }
 
 setup_zshrc () {
