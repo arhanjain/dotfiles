@@ -18,7 +18,7 @@ setup_nvim ()  {
     echo "Installing Neovim..."
     wget -P "$SCRIPT_DIR/" "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
     chmod +x "$SCRIPT_DIR/nvim.appimage"
-    "$PWD/nvim.appimage" --appimage-extract
+    "$SCRIPT_DIR/nvim.appimage" --appimage-extract
     mv "$PWD/squashfs-root/" /opt/neovim/
     ln -s /opt/neovim/AppRun /usr/bin/nvim
 
@@ -42,6 +42,23 @@ setup_nvim ()  {
     mkdir -p "$HOME/.config"
     ln -s "$SCRIPT_DIR/.config/nvim" "$nvim_config_path"
   fi
+
+  echo "Installing Neovim plugin dependencies..."
+
+  if ! command -v g++ &> /dev/null; then
+    echo "Installing G++..."
+    sudo apt install g++
+  fi
+
+  if ! command -v npm &> /dev/null; then
+    echo "Installing NodeJS..."
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+  fi
+
+  echo "Installing pyright..."
+  npm i -g pyright
+
 }
 
 setup_zshrc () {

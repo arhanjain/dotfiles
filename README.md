@@ -4,6 +4,8 @@ A bunch of files that make my life easier as a developer
 - nvim config
 - zshrc
 
+Test for: Ubuntu (Linux)
+
 INSTALLATION INSTRUCTIONS
 note: i'm trying to make the setup as automated as possible, but some aspects simply require manual input
 
