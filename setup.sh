@@ -36,12 +36,12 @@ setup_nvim ()  {
   echo "Setting up Neovim..."
 
   if [ -d "$nvim_config_path" ]; then
-    echo "Neovim config directory already exists!"
+    echo "Neovim config directory already exists! Backing it up"
+    mv "$nvim_config_path" "$nvim_config_path.backup"
     failed Neovim
-  else
-    mkdir -p "$HOME/.config"
-    ln -s "$SCRIPT_DIR/.config/nvim" "$nvim_config_path"
   fi
+    mkdir -p "$HOME/.config"
+  ln -s "$SCRIPT_DIR/.config/nvim" "$nvim_config_path"
 
   echo "Installing Neovim plugin dependencies..."
 
