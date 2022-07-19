@@ -1,18 +1,13 @@
-local utils = require("utils")
 local fn = vim.fn
 
-vim.g.package_home = fn.stdpath("data") .. "/site/pack/packer/"
-local packer_install_dir = vim.g.package_home .. "/opt/packer.nvim"
-
-local packer_repo = "https://github.com/wbthomason/packer.nvim"
-local install_cmd = string.format("10split |term git clone --depth=1 %s %s", packer_repo, packer_install_dir)
-
--- Auto-install packer in case it hasn't been installed.
-if fn.glob(packer_install_dir) == "" then
-  vim.api.nvim_echo({ { "Installing packer.nvim", "Type" } }, true, {})
-  vim.cmd(install_cmd)
-  os.execute("sleep 5")
+function conditional_treesitter_config()
+  if io.open("config.treesitter", "r")~=nil then
+    return
+  else
+    require("config.treesitter")
+  end
 end
+
 
 -- Load packer.nvim
 vim.cmd("packadd packer.nvim")
@@ -39,8 +34,8 @@ require("packer").startup({
     -- LSP Config
     use {"neovim/nvim-lspconfig",after = "cmp-nvim-lsp", config = [[require "config.lsp"]]}
 
-    -- Treesitter
-    use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require("config.treesitter")]] }
+    -- Treesitter (errors first launch if not installed)
+    use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[conditional_treesitter_config()]] }
 
     -- Lua Line
     use {'kyazdani42/nvim-web-devicons', event = 'VimEnter'}
