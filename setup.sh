@@ -59,7 +59,18 @@ setup_nvim ()  {
   echo "Installing pyright..."
   npm i -g pyright
 
+
+  echo "Installing packer.nvim..."
+  if [[ ! -d ~/.local/share/nvim/site/pack/packer/opt/packer.nvim ]]; then
+    git clone --depth=1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
+  fi
+
+  echo "Installing Neovim plugins..."
   nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
+
+  mv "$SCRIPT_DIR/.config/nvim/lua/config/treesitter-backup.lua" "$SCRIPT_DIR/.config/nvim/lua/config/treesitter.lua"
+
+  echo "Finished Neovim setup!"
 }
 
 setup_zshrc () {
