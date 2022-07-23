@@ -49,7 +49,18 @@ require("packer").startup({
         vim.defer_fn(function() require('config.hop') end, 2000)
       end,
     }
+
+    -- LeaderF fuzzyfinder
+    use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
     
+    -- Telescope fuzzyfinder
+    use {
+      'nvim-telescope/telescope.nvim', cmd = 'Telescope',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
+    -- search emoji and other symbols
+    use {'nvim-telescope/telescope-symbols.nvim', after = 'telescope.nvim'}
+
     -- Themes
     use { 'sainnhe/everforest'}
     use { 'projekt0n/github-nvim-theme', opt = true }

@@ -80,6 +80,7 @@ local cwd_dir = function()
 	return vim.fn.getcwd()
 end
 
+-- Language server setup
 if utils.executable('pyright') then
 	lspconfig['pyright'].setup({
 		root_dir = cwd_dir,
@@ -90,6 +91,18 @@ else
 	vim.notify("pyright not found!", 'warn', {title = 'Nvim-config'})
 end
 
+if utils.executable('clangd') then
+  lspconfig.clangd.setup({
+    on_attach = cust_attach,
+    capabilities = capabilities,
+    filetypes = { "c", "cpp", "cc" },
+    flags = {
+      debounce_text_changes = 500,
+    },
+  })
+else
+  vim.notify("clangd not found!", 'warn', {title = 'Nvim-config'})
+end
 
 -- Change diagnostic signs.
 fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
