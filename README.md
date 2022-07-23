@@ -49,3 +49,5 @@ No setup further setup is needed. This script will take care of checking and ins
 - automatic setup for zsh
 - any theme or aesthetic changes to the OS (orchid theme maybe)
 - find better suited colors for nvim hop (try to match the demo)
+- list all features & plugins in readme
+- update commands and shortcuts
