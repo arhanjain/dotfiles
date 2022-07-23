@@ -10,8 +10,7 @@ end
 
 
 -- Load packer.nvim
-vim.cmd("packadd packer.nvim")
-local util = require('packer.util')
+vim.cmd("packadd packer.nvim") local util = require('packer.util')
 
 require("packer").startup({
   function()
@@ -49,22 +48,26 @@ require("packer").startup({
         vim.defer_fn(function() require('config.hop') end, 2000)
       end,
     }
-
-    -- LeaderF fuzzyfinder
-    use({ "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" })
     
-    -- Telescope fuzzyfinder
+    -- Telescope fuzzyfinder with symbols
     use {
-      'nvim-telescope/telescope.nvim', cmd = 'Telescope',
-      requires = { {'nvim-lua/plenary.nvim'} }
+      'nvim-telescope/telescope.nvim',
+      config = [[require('config.telescope1234')]],
+      requires = { {'nvim-lua/plenary.nvim'} },
     }
-    -- search emoji and other symbols
     use {'nvim-telescope/telescope-symbols.nvim', after = 'telescope.nvim'}
+
+    -- Shortcuts and keybinding documentation with Which Key
+    use { "folke/which-key.nvim", config = [[require('config.which-key')]] }
 
     -- Themes
     use { 'sainnhe/everforest'}
     use { 'projekt0n/github-nvim-theme', opt = true }
     use {'EdenEast/nightfox.nvim'}
+
+    -- Discord Rich Presence
+    use 'andweeb/presence.nvim'
+
     end,
     config = {
     max_jobs = 16,

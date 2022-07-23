@@ -78,6 +78,7 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # User configuration
+zstyle :prompt:pure:virtualenv color magenta
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
