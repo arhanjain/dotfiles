@@ -52,8 +52,8 @@ require("packer").startup({
     -- Telescope fuzzyfinder with symbols
     use {
       'nvim-telescope/telescope.nvim',
-      config = [[require('config.telescope1234')]],
-      requires = { {'nvim-lua/plenary.nvim'} },
+      requires = {'nvim-lua/plenary.nvim'},
+      config = [[require('config.telescope')]],
     }
     use {'nvim-telescope/telescope-symbols.nvim', after = 'telescope.nvim'}
 
