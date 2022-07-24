@@ -1,9 +1,7 @@
-lua require('init')
+" Lua scripts main file
+lua require('init')  
 
-colorscheme duskfox
+" General vim script setup
+execute printf('source %s/setup.vim', stdpath('config'))
 
-" Auto-generate packer_compiled.lua file
-augroup packer_auto_compile
-  autocmd!
-  autocmd BufWritePost */nvim/lua/plugins.lua source <afile> | PackerCompile
-augroup END
+

@@ -48,12 +48,11 @@ require("packer").startup({
     use { 'nvim-lualine/lualine.nvim', event = 'VimEnter', config = [[require('config.lualine')]]}
 
     -- Buffer Line
-    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
-      config = function() 
-        vim.opt.termguicolors = true
-        require("bufferline").setup{}
-        end
-      }
+    use {'akinsho/bufferline.nvim',
+      tag = "v2.*",
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = [[require('config.bufferline')]],
+    }
 
     -- Fast buffer jumping with Hop
     use {

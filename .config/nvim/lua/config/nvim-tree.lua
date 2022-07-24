@@ -4,4 +4,3 @@ nvim_tree.setup({
   hijack_cursor = true,
 })
 
-
