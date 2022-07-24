@@ -6,6 +6,7 @@ local mappings = {
   w = {":w<cr>", "Save"},
   W = {":wq<cr>", "Save & Quit"},
   x = {":bdelete<cr>", "Close"},
+  e = {":NvimTreeToggle<cr>", "Toggle Tree"},
   t = {
     name = "Telescope",
     t = {":Telescope<cr>", "Launch Telescope"},

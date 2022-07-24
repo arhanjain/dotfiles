@@ -36,9 +36,24 @@ require("packer").startup({
     -- Treesitter (errors first launch if not installed)
     use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[conditional_treesitter_config()]] }
 
+    -- Tree File Explorer
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = [[require('config.nvim-tree')]],
+    }
+
     -- Lua Line
     use {'kyazdani42/nvim-web-devicons', event = 'VimEnter'}
     use { 'nvim-lualine/lualine.nvim', event = 'VimEnter', config = [[require('config.lualine')]]}
+
+    -- Buffer Line
+    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
+      config = function() 
+        vim.opt.termguicolors = true
+        require("bufferline").setup{}
+        end
+      }
 
     -- Fast buffer jumping with Hop
     use {
