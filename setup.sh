@@ -52,6 +52,12 @@ setup_nvim ()  {
 
   if ! command -v npm &> /dev/null; then
     echo "Installing NodeJS..."
+
+    if ! command -v curl &> /dev/null; then
+      echo "Installing curl..."
+      sudo apt install curl
+    fi
+
     curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
     sudo apt-get install -y nodejs
   fi

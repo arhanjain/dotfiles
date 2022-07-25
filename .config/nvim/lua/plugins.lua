@@ -1,7 +1,7 @@
 local fn = vim.fn
 
 function conditional_treesitter_config()
-  if io.open("config.treesitter", "r")~=nil then
+if io.open("config.treesitter", "r")~=nil then
     return
   else
     require("config.treesitter")
@@ -34,18 +34,25 @@ require("packer").startup({
     use {"neovim/nvim-lspconfig",after = "cmp-nvim-lsp", config = [[require "config.lsp"]]}
 
     -- Treesitter (errors first launch if not installed)
-    use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[conditional_treesitter_config()]] }
+    use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require('config.treesitter')]] }
+
+    -- Web devicons required by multiple plugins
+    use {'kyazdani42/nvim-web-devicons'}
 
     -- Tree File Explorer
     use {
       'kyazdani42/nvim-tree.lua',
-      requires = { 'kyazdani42/nvim-web-devicons' },
+      tag = 'nightly',    
+      requires = 'kyazdani42/nvim-web-devicons',
       config = [[require('config.nvim-tree')]],
     }
 
     -- Lua Line
-    use {'kyazdani42/nvim-web-devicons', event = 'VimEnter'}
-    use { 'nvim-lualine/lualine.nvim', event = 'VimEnter', config = [[require('config.lualine')]]}
+    use { 
+      'nvim-lualine/lualine.nvim',
+      event = 'VimEnter',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = [[require('config.lualine')]]}
 
     -- Buffer Line
     use {'akinsho/bufferline.nvim',
@@ -75,9 +82,9 @@ require("packer").startup({
     use { "folke/which-key.nvim", config = [[require('config.which-key')]] }
 
     -- Themes
-    use { 'sainnhe/everforest'}
+    use { 'sainnhe/everforest', opt = true}
     use { 'projekt0n/github-nvim-theme', opt = true }
-    use {'EdenEast/nightfox.nvim'}
+    use {'EdenEast/nightfox.nvim', opt = true}
 
     -- Discord Rich Presence
     use 'andweeb/presence.nvim'
@@ -89,9 +96,10 @@ require("packer").startup({
   },
 })
 
+--require("nvim-tree").setup{}
 local status, _ = pcall(require, 'packer_compiled')
 
 if not status then
-	vim.notify("Error requiring packer_compiled.lua: run PackerSync to fix!")
+	vim.notify("Error requiring packer_compiled.lua: run PackerSync to fix!", "info")
 end
 
