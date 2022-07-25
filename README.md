@@ -20,6 +20,8 @@ Coming soon...
 
 Install all the configurations and tools with the setup script.
 
+***Not yet supported***
+
 ```bash
 ./setup.sh
 ```
