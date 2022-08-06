@@ -31,7 +31,7 @@ default_border pixel 0
 default_floating_border pixel 0
 
 # Set gap size
-gaps inner 15
+gaps inner 18
 
 # Set background image
 exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/citylights.png
