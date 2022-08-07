@@ -3,7 +3,7 @@ set relativenumber
 
 " Add theme if respective package is installed
 " theme package, colorscheme
-let s:theme =  ["everforest", "everforest"]
+let s:theme =  ["nightfox.nvim", "duskfox"]
 
 let s:status = v:true
 try
