@@ -7,7 +7,7 @@ local cust_attach = function(client, bufnr)
   local opts = { silent = true, buffer = bufnr }
 --  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   --vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, opts)
-  vim.keymap.set("i", "K", vim.lsp.buf.hover, opts)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 --  vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 --  vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
@@ -99,6 +99,20 @@ if utils.executable('clangd') then
   })
 else
   vim.notify("clangd not found!", 'warn', {title = 'Nvim-config'})
+end
+
+if utils.executable('vscode-json-language-server') then
+  lspconfig.jsonls.setup({
+    capabilities = capabilities,
+  })
+else
+  vim.notify("jsonls not found!", 'warn', {title = 'Nvim-config'})
+end
+
+if utils.executable('bash-language-server') then
+  lspconfig.bashls.setup{}
+else
+  vim.notify("bashls not found!", 'warn', {title = 'Nvim-config'})
 end
 
 -- Change diagnostic signs.

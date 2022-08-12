@@ -30,6 +30,9 @@ require("packer").startup({
     use {"hrsh7th/cmp-path", after = "nvim-cmp"}
     use {"hrsh7th/cmp-buffer", after = "nvim-cmp"}
 
+    use({"SirVer/ultisnips", event = 'InsertEnter'})
+    use {"quangnguyen30192/cmp-nvim-ultisnips", after = {'nvim-cmp', 'ultisnips'}}
+
     -- LSP Config
     use {"neovim/nvim-lspconfig",after = "cmp-nvim-lsp", config = [[require "config.lsp"]]}
 

@@ -1,0 +1,17 @@
+{
+  "pages": [
+    {
+      "title": "Select installation mode.",
+      "options": [
+        { "Default": "Automatically install all recommended features." },
+        { "Custom" : "Step by step process in choosing which features to install." }
+      ]
+    },
+    {
+      "title": "Page 2",
+      "options": [
+        { "test": "test1" }
+      ]
+    }
+  ]
+}
