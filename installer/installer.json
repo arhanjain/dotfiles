@@ -1,17 +1,43 @@
 {
+  "start": {
+    "title": "Select installation mode.",
+    "options": [
+      { "Default": "Automatically install all recommended features." },
+      { "Custom" : "Step by step process in choosing which features to install." }
+    ]
+  },
   "pages": [
     {
       "title": "Select installation mode.",
       "options": [
-        { "Default": "Automatically install all recommended features." },
-        { "Custom" : "Step by step process in choosing which features to install." }
+        {
+          "text": "Default",
+          "command": null,
+          "info": "Automatically install all recommended features."
+        },
+        {
+          "text": "Custom",
+          "command": null,
+          "info": "Step by step process in choosing which features to install."
+        }
       ]
     },
     {
-      "title": "Page 2",
+      "title": "Install Neovim?",
       "options": [
-        { "test": "test1" }
+        { 
+          "text": "Yes",
+          "command": "setup_nvim",
+          "info": "Install the one true text editor, Neovim, along with useful plugins for the ideal development experience"
+        },
+        { 
+          "text": "No",
+          "command": null,
+          "info": "Install the one true text editor, Neovim, along with useful plugins for the ideal development experience" }
       ]
+    },
+    {
+      "title": "finish"
     }
   ]
 }

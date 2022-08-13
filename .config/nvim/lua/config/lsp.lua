@@ -115,6 +115,12 @@ else
   vim.notify("bashls not found!", 'warn', {title = 'Nvim-config'})
 end
 
+if utils.executable('docker-langserver') then
+  lspconfig.dockerls.setup{}
+else
+  vim.notify("dockerls not found!", 'warn', {title = 'Nvim-config'})
+end
+
 -- Change diagnostic signs.
 fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
 fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
