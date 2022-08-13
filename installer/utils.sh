@@ -90,3 +90,4 @@ setup_zshrc () {
   fi
 } 
 
+$1

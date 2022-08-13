@@ -108,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Aliases
 alias ls="ls -lha --color=auto"
+alias ssh="kitty +kitten ssh"
 
 
 # >>> conda initialize >>>
@@ -127,3 +128,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
+export PATH=$PATH:/home/owhan/.spicetify
