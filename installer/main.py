@@ -83,7 +83,7 @@ class Page(Widget):
         if command is not None:
             installer_dir = os.path.dirname(__file__)
             util_script = os.path.join(installer_dir, "utils.sh")
-            os.system(f"source {util_script}; {command}")
+            os.system(f"{util_script} {command}")
 
     async def key_press(self, event: events.Key) -> None:
         match event.key:
@@ -109,6 +109,8 @@ class Page(Widget):
                 else:
                     # Custom Installation screen
                     self.exec_command()
+                    self.selected = 0
+                    self.page += 1
                         #execute command
 
 class Installer(App):
@@ -131,7 +133,7 @@ class Installer(App):
 
 if __name__ == "__main__":
 
-    config_file_path = "./installer.json"
+    config_file_path = f"{os.path.dirname(__file__)}/installer.json"
     config_file = open(config_file_path, "r")
     config = json.load(config_file)
     config_file.close()
