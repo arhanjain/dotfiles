@@ -27,7 +27,7 @@
       "options": [
         { 
           "text": "Yes",
-          "command": "setup_nvim",
+          "command": "setup_neovim",
           "info": "Install the one true text editor, Neovim, along with useful plugins for the ideal development experience"
         },
         { 
@@ -37,7 +37,14 @@
       ]
     },
     {
-      "title": "finish"
+      "title": "Installation process complete.",
+      "options": [
+        {
+          "text": "Finish",
+          "command": null,
+          "info": "Close out of installer and take my new development environment for a spin."
+        }
+      ]
     }
   ]
 }

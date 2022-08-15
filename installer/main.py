@@ -1,7 +1,8 @@
 import json
-from os import wait
 import os
+import utils
 
+from pathlib import Path
 from typing import List
 from rich import box
 from rich.align import Align
@@ -79,11 +80,13 @@ class Page(Widget):
         return panel
 
     def exec_command(self):
-        command = self.options[self.selected]["command"]
-        if command is not None:
-            installer_dir = os.path.dirname(__file__)
-            util_script = os.path.join(installer_dir, "utils.sh")
-            os.system(f"{util_script} {command}")
+        command_str = self.options[self.selected]["command"]
+        if command_str is not None:
+            installer_dir = Path(__file__).parent
+            #util_script = os.path.join(installer_dir, "utils.sh")
+            command = getattr(utils, command_str)
+            command(installer_dir)
+            #os.system(f"{util_script} {command}")
 
     async def key_press(self, event: events.Key) -> None:
         match event.key:
@@ -133,7 +136,7 @@ class Installer(App):
 
 if __name__ == "__main__":
 
-    config_file_path = f"{os.path.dirname(__file__)}/installer.json"
+    config_file_path = Path(__file__).parent/"installer.json"
     config_file = open(config_file_path, "r")
     config = json.load(config_file)
     config_file.close()

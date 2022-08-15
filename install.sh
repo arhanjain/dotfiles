@@ -20,6 +20,7 @@ fi
 
 python3.10 -m venv $SCRIPT_DIR/.dotfiles-venv
 $SCRIPT_DIR/.dotfiles-venv/bin/pip install textual
+$SCRIPT_DIR/.dotfiles-venv/bin/pip install requests
 
 $SCRIPT_DIR/.dotfiles-venv/bin/python $SCRIPT_DIR/installer/main.py
 

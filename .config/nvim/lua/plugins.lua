@@ -101,8 +101,9 @@ require("packer").startup({
 
 --require("nvim-tree").setup{}
 local status, _ = pcall(require, 'packer_compiled')
-
+ 
 if not status then
-	vim.notify("Error requiring packer_compiled.lua: run PackerSync to fix!", "info")
+   os.execute("sleep 1")
+   --vim.notify("Error requiring packer_compiled.lua: run PackerSync to fix!", "info")
 end
 
