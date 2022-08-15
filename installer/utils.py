@@ -8,8 +8,8 @@ from pathlib import Path
 #         print("P
 
 # Constants
-HOME = pwd.getpwnam("ubuntu").pw_dir
 USER = os.environ["SUDO_USER"]
+HOME = pwd.getpwnam(USER).pw_dir
 
 def failed(program: str):
     print(f"{program} failed to install. Please debug or file an issue at arhanjain/dotfiles")
@@ -90,7 +90,7 @@ def setup_neovim(installer_dir: Path):
 
     # Compile Neovim plugins and sync
     print("Installing Neovim plugins...")
-    subprocess.run(["sudo", "-u", USER, "nvim", "-c", "autocmd User PackerComplete quitall", "-c", "PackerSync"])
+    subprocess.run(["sudo", "-u", USER, "nvim", "-c", "autocmd User PackerComplete quitall", "-c", "PackerSync"], stdout=subprocess.DEVNULL)
 
 
 if __name__ == "__main__":

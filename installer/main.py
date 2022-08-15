@@ -1,13 +1,17 @@
 import json
 import os
+
 import utils
 
+from collections import deque
+from rich.text import Text
 from pathlib import Path
 from typing import List
 from rich import box
 from rich.align import Align
 from rich.table import Table
 from rich.panel import Panel
+from rich.layout import Layout
 from rich.padding import Padding
 from rich.console import Group
 from textual import events
@@ -24,6 +28,8 @@ class Page(Widget):
     def __init__(self, page_data: dict):
         super().__init__()
         self.page_data = page_data
+        self.log_text = deque()
+#        self.log_text = []
 
     def render(self):
         return self.make_page()
@@ -38,12 +44,11 @@ class Page(Widget):
         styles[int(self.selected)] = "blue bold "
         return styles
 
-    def make_page(self):
-        self.update_page_attributes()
+    def make_selection_panel(self):
         option_styles = self.option_styles()
 
         table = Table.grid(padding=1) 
-        table.add_column(max_width=40)
+        table.add_column(max_width=50)
 
         # Title
         table.add_row(
@@ -59,8 +64,9 @@ class Page(Widget):
             )
 
         # Note
+        info = self.options[self.selected]["info"] 
         table.add_row(
-            self.options[self.selected]["info"],
+            info,
             style="yellow"
         )
 
@@ -72,12 +78,51 @@ class Page(Widget):
                     box=box.ROUNDED,
                     title="Arhan Jain's Dotfiles Installer",
                     border_style="red",
-                    expand=False
+                    expand=True
                 )
-
-        panel = Align.center(panel, vertical="middle")
-
         return panel
+
+
+    def make_log_panel(self):
+        for i in range(5):
+            self.log_text.appendleft(str(i))
+
+        text = Text()
+
+        for entry in self.log_text:
+            text.append(f"{entry}\n")
+
+        panel = Panel(
+            text,
+            box=box.ROUNDED,
+            title="Log",
+            border_style="blue",
+            expand=True,
+        )
+        return panel
+
+    def make_page(self):
+        self.update_page_attributes()
+        # Log Panel
+
+        # Make pages
+        selection_panel = self.make_selection_panel()
+        log_panel = self.make_log_panel()
+
+        layout = Layout()
+        layout.split_row(
+            Padding(selection_panel, (1,2)),
+            Padding(log_panel, (1,2))
+        )
+
+        page = Panel(
+                layout,
+                box=box.ROUNDED,
+                title="Arhan Jain's Dotfiles Installer",
+                border_style="magenta",
+        )
+
+        return page
 
     def exec_command(self):
         command_str = self.options[self.selected]["command"]
