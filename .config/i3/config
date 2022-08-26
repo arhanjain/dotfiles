@@ -123,6 +123,8 @@ bindsym $mod+x split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
+# default layout
+workspace_layout stacking
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -210,3 +212,10 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+# Assign apps to workspaces
+for_window [class="Spotify"] move to workspace 1
+assign [class="discord"] 1
+assign [class="Brave-browser"] 2
+assign [class="Mailspring"] 2
+#assign [class="kitty"] 3

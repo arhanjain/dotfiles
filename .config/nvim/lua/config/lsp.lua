@@ -121,11 +121,40 @@ else
   vim.notify("dockerls not found!", 'warn', {title = 'Nvim-config'})
 end
 
+if utils.executable('typescript-language-server') then
+  lspconfig.tsserver.setup{}
+else
+  vim.notify("tsserver not found!", 'warn', {title = 'Nvim-config'})
+end
+
+if utils.executable('vscode-css-language-server') then
+  lspconfig.cssls.setup{
+    capabilities = capabilities,
+  }
+else
+  vim.notify("cssserver not found!", 'warn', {title = 'Nvim-config'})
+end
+
+if utils.executable('cssmodules-language-server') then
+  lspconfig.cssmodules_ls.setup{
+    capabilities = capabilities,
+    init_options = {
+        camelCase = 'dashes',
+    },
+  }
+else
+  vim.notify("cssmodules_ls not found!", 'warn', {title = 'Nvim-config'})
+end
+
 -- Change diagnostic signs.
-fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
-fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
-fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
-fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+fn.sign_define("DiagnosticSignError", { numhl = "LspDiagnosticsLineNrError" })
+fn.sign_define("DiagnosticSignWarn", { numhl = "LspDiagnosticsLineNrWarning" })
+fn.sign_define("DiagnosticSignInformation", { numhl = "LspDiagnosticsLineNrInfo" })
+fn.sign_define("DiagnosticSignHint", { numhl = "LspDiagnosticsLineNrHint" })
+vim.cmd("highlight LspDiagnosticsLineNrError guifg=#eb6f92 guibg=# gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrWarning guifg=#f6c177 gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrInfo guifg=#569fba gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrHint guifg=#a3be8c gui=bold")
 
 -- global config for diagnostic
 vim.diagnostic.config({

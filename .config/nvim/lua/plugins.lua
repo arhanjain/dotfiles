@@ -84,6 +84,9 @@ require("packer").startup({
     -- Shortcuts and keybinding documentation with Which Key
     use { "folke/which-key.nvim", config = [[require('config.which-key')]] }
 
+    -- Git integration
+    use { "lewis6991/gitsigns.nvim", config = [[require('config.gitsigns')]], event = 'BufEnter' }
+
     -- Themes
     use { 'sainnhe/everforest', opt = true}
     use { 'projekt0n/github-nvim-theme', opt = true }

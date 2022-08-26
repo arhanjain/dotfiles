@@ -3,7 +3,6 @@ wk.setup{}
 
 local mappings = {
   q = {":q<cr>", "Quit"},
-  Q = {":q!<cr>", "Force Quit"},
   w = {":w<cr>", "Save"},
   W = {":wq<cr>", "Save & Quit"},
   x = {":bd<cr>", "Close"},

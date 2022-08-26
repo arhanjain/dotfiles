@@ -1,5 +1,6 @@
 set mouse=a
-set relativenumber
+set number
+set signcolumn=yes:1
 
 " Add theme if respective package is installed
 " theme package, colorscheme
