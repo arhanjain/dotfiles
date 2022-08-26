@@ -151,10 +151,10 @@ fn.sign_define("DiagnosticSignError", { numhl = "LspDiagnosticsLineNrError" })
 fn.sign_define("DiagnosticSignWarn", { numhl = "LspDiagnosticsLineNrWarning" })
 fn.sign_define("DiagnosticSignInformation", { numhl = "LspDiagnosticsLineNrInfo" })
 fn.sign_define("DiagnosticSignHint", { numhl = "LspDiagnosticsLineNrHint" })
-vim.cmd("highlight LspDiagnosticsLineNrError guifg=#eb6f92 guibg=# gui=bold")
-vim.cmd("highlight LspDiagnosticsLineNrWarning guifg=#f6c177 gui=bold")
-vim.cmd("highlight LspDiagnosticsLineNrInfo guifg=#569fba gui=bold")
-vim.cmd("highlight LspDiagnosticsLineNrHint guifg=#a3be8c gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrError guifg=#eb6f92 guibg=#412d44 gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrWarning guifg=#f6c177 guibg=#433940 gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrInfo guifg=#569fba guibg=#2b344a gui=bold")
+vim.cmd("highlight LspDiagnosticsLineNrHint guifg=#a3be8c guibg=#363943 gui=bold")
 
 -- global config for diagnostic
 vim.diagnostic.config({

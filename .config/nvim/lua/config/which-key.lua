@@ -26,6 +26,7 @@ local mappings = {
   l = {
     name = "LSP",
     r = {vim.lsp.buf.rename, "Rename"},
+    l = {function() require("lsp_lines").toggle() end, "Toggle diagnostic lines"},
     q = {function() vim.diagnostic.setqflist({open=true}) end , "Diagnostics"},
     c = {vim.lsp.buf.code_action, "Code actions"},
   }

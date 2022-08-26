@@ -36,6 +36,9 @@ require("packer").startup({
     -- LSP Config
     use {"neovim/nvim-lspconfig",after = "cmp-nvim-lsp", config = [[require "config.lsp"]]}
 
+    -- Diagnostic Lines
+    use {"https://git.sr.ht/~whynothugo/lsp_lines.nvim", after = "nvim-lspconfig", config = [[require('lsp_lines').setup()]]}
+
     -- Treesitter (errors first launch if not installed)
     use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require('config.treesitter')]] }
 
