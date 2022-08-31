@@ -90,6 +90,9 @@ require("packer").startup({
     -- Git integration
     use { "lewis6991/gitsigns.nvim", config = [[require('config.gitsigns')]], event = 'BufEnter' }
 
+    -- Kitty navigation
+    use { 'knubie/vim-kitty-navigator', run = "cp ./*.py ~/.config/kitty/" }
+
     -- Themes
     use { 'sainnhe/everforest', opt = true}
     use { 'projekt0n/github-nvim-theme', opt = true }
