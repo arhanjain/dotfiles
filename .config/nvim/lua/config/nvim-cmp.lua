@@ -8,6 +8,7 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }), -- manually ask for completion
 		['<Tab>'] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -29,6 +30,7 @@ cmp.setup({
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 	}),
 	sources = {
+    { name = 'copilot' },
 		{ name = 'nvim_lsp' },
 		{ name = 'ultisnips' },
 		{ name = 'path' },
@@ -55,6 +57,10 @@ cmp.setup({
 				omni = "[Omni]",
 			}),
 		}),
+	},
+  window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 })
 
