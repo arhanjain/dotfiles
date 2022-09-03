@@ -72,7 +72,7 @@ SPACESHIP_CONDA_SYMBOL="🅒 "
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting gitfast)
+plugins=(git zsh-syntax-highlighting gitfast conda-zsh-completion)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,9 +107,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Aliases
-alias ls="ls -lha --color=auto"
+alias ls="ls -lh --color=auto"
+alias ll="ls -lha --color=auto"
 alias ssh="kitty +kitten ssh"
-
+alias refresh-display="xrandr --auto"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

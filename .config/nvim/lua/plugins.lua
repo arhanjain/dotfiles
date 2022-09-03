@@ -1,7 +1,7 @@
 local fn = vim.fn
 
 function conditional_treesitter_config()
-if io.open("config.treesitter", "r")~=nil then
+  if io.open("config.treesitter", "r")~=nil then
     return
   else
     require("config.treesitter")
@@ -33,11 +33,23 @@ require("packer").startup({
     use({"SirVer/ultisnips", event = 'InsertEnter'})
     use {"quangnguyen30192/cmp-nvim-ultisnips", after = {'nvim-cmp', 'ultisnips'}}
 
+    -- Mason language package manager
+    use { "williamboman/mason.nvim" }
+    use { "williamboman/mason-lspconfig.nvim" }
+
+    -- Java LSP & More
+    use { 'mfussenegger/nvim-jdtls' }
+
     -- LSP Config
-    use {"neovim/nvim-lspconfig",after = "cmp-nvim-lsp", config = [[require "config.lsp"]]}
+    use {"neovim/nvim-lspconfig", after = {"cmp-nvim-lsp"}, config = [[require "config.lsp"]]}
 
     -- Diagnostic Lines
     use {"https://git.sr.ht/~whynothugo/lsp_lines.nvim", after = "nvim-lspconfig", config = [[require('lsp_lines').setup()]]}
+
+    -- Debugging
+    use { "rcarriga/nvim-dap-ui"}
+    use { "mfussenegger/nvim-dap-python" }
+    use { "mfussenegger/nvim-dap", config = [[require('config.dap')]] }
 
     -- Treesitter (errors first launch if not installed)
     use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require('config.treesitter')]] }
@@ -48,13 +60,13 @@ require("packer").startup({
     -- Tree File Explorer
     use {
       'kyazdani42/nvim-tree.lua',
-      tag = 'nightly',    
+      tag = 'nightly',
       requires = 'kyazdani42/nvim-web-devicons',
       config = [[require('config.nvim-tree')]],
     }
 
     -- Lua Line
-    use { 
+    use {
       'nvim-lualine/lualine.nvim',
       event = 'VimEnter',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -67,6 +79,8 @@ require("packer").startup({
       config = [[require('config.bufferline')]],
     }
 
+    use { "numToStr/Comment.nvim", config = [[require('Comment').setup()]] }
+
     -- Fast buffer jumping with Hop
     use {
       "phaazon/hop.nvim",
@@ -75,13 +89,14 @@ require("packer").startup({
         vim.defer_fn(function() require('config.hop') end, 2000)
       end,
     }
-    
+
     -- Telescope fuzzyfinder with symbols
     use {
       'nvim-telescope/telescope.nvim',
       requires = {'nvim-lua/plenary.nvim'},
       config = [[require('config.telescope')]],
     }
+
     use {'nvim-telescope/telescope-symbols.nvim', after = 'telescope.nvim'}
 
     -- Shortcuts and keybinding documentation with Which Key
@@ -91,7 +106,8 @@ require("packer").startup({
     use { "lewis6991/gitsigns.nvim", config = [[require('config.gitsigns')]], event = 'BufEnter' }
 
     -- Kitty navigation
-    use { 'knubie/vim-kitty-navigator', run = "cp ./*.py ~/.config/kitty/" }
+    -- use { 'knubie/vim-kitty-navigator', run = "cp ./*.py ~/.config/kitty/" }
+    use { 'hermitmaster/nvim-kitty-navigator', run = 'cp kitty/* ~/.config/kitty/', config = [[require('nvim-kitty-navigator').setup{}]] }
 
     -- Themes
     use { 'sainnhe/everforest', opt = true}
@@ -110,7 +126,7 @@ require("packer").startup({
 
 --require("nvim-tree").setup{}
 local status, _ = pcall(require, 'packer_compiled')
- 
+
 if not status then
    os.execute("sleep 1")
    --vim.notify("Error requiring packer_compiled.lua: run PackerSync to fix!", "info")

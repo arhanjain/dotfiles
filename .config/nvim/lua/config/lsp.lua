@@ -2,17 +2,17 @@ local fn = vim.fn
 local api = vim.api
 local lsp = vim.lsp
 
-local cust_attach = function(client, bufnr)
+local custom_attach = function(client, bufnr)
   -- Mappings.
   local opts = { silent = true, buffer = bufnr }
---  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   --vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, opts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 --  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 --  vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 --  vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 --  vim.keymap.set("n", "<space>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
---  vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 --  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 --  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
@@ -43,12 +43,12 @@ local cust_attach = function(client, bufnr)
   })
 
   -- Set some key bindings conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting_sync, opts)
-  end
-  if client.resolved_capabilities.document_range_formatting then
-    vim.keymap.set("x", "<space>f", vim.lsp.buf.range_formatting, opts)
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  --   vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting_sync, opts)
+  -- end
+  -- if client.resolved_capabilities.document_range_formatting then
+  --   vim.keymap.set("x", "<space>f", vim.lsp.buf.range_formatting, opts)
+  -- end
 
 
   -- The blow command will highlight the current variable and its usages in the buffer.
@@ -70,81 +70,110 @@ local capabilities = lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local lspconfig = require "lspconfig"
-local utils = require("utils")
+require("mason").setup()
 
-local cwd_dir = function()
-	return vim.fn.getcwd()
-end
+local mason_lspconfig = require("mason-lspconfig")
+local lspconfig = require("lspconfig")
 
--- Language server setup
-if utils.executable('pyright') then
-	lspconfig['pyright'].setup({
-		root_dir = cwd_dir,
-		on_attach = cust_attach,
-		capabilities = capabilities,
-	})
-else
-	vim.notify("pyright not found!", 'warn', {title = 'Nvim-config'})
-end
+mason_lspconfig.setup()
+mason_lspconfig.setup_handlers({
+  -- Default handler
+  function (server_name)
+    lspconfig[server_name].setup{
+      on_attach = custom_attach,
+      capabilities = capabilities,
+    }
+  end,
 
-if utils.executable('clangd') then
-  lspconfig.clangd.setup({
-    on_attach = cust_attach,
-    capabilities = capabilities,
-    filetypes = { "c", "cpp", "cc" },
-    flags = {
-      debounce_text_changes = 500,
-    },
-  })
-else
-  vim.notify("clangd not found!", 'warn', {title = 'Nvim-config'})
-end
+  ["sumneko_lua"] = function ()
+    lspconfig.sumneko_lua.setup({
+      on_attach = custom_attach,
+      capabilities = capabilities,
 
-if utils.executable('vscode-json-language-server') then
-  lspconfig.jsonls.setup({
-    capabilities = capabilities,
-  })
-else
-  vim.notify("jsonls not found!", 'warn', {title = 'Nvim-config'})
-end
+      settings = {
+        Lua = {
+          -- Tells lua that vim and use exist for nvim configuration
+          diagnostics = {
+            globals = { "vim", "use" },
+          },
+        },
+      },
+    })
+  end,
 
-if utils.executable('bash-language-server') then
-  lspconfig.bashls.setup{}
-else
-  vim.notify("bashls not found!", 'warn', {title = 'Nvim-config'})
-end
+  ["jdtls"] = function()
+    local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
+    local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+    local workspace_dir = os.getenv("HOME") .. "/.cache/jdtls/workspace/" .. project_name
+    local mount_commands = function()
+      local jdtls = require('jdtls')
 
-if utils.executable('docker-langserver') then
-  lspconfig.dockerls.setup{}
-else
-  vim.notify("dockerls not found!", 'warn', {title = 'Nvim-config'})
-end
+      -- Set some keymaps for extra functionality
+      vim.keymap.set("n", "<A-o>", function() jdtls.organize_imports() end)
+      vim.keymap.set("n", "crv", function() jdtls.extract_variable() end)
+      vim.keymap.set("v", "crv", function() jdtls.extract_variable(true) end)
+      vim.keymap.set("n", "crc", function() jdtls.extract_variable() end)
+      vim.keymap.set("v", "crc", function() jdtls.extract_variable(true) end)
+      vim.keymap.set("v", "crm", function() jdtls.extract_method(true) end)
 
-if utils.executable('typescript-language-server') then
-  lspconfig.tsserver.setup{}
-else
-  vim.notify("tsserver not found!", 'warn', {title = 'Nvim-config'})
-end
+      require('jdtls.setup').add_commands()
+    end
+    local config = {
+      -- The command that starts the language server
+      filetypes = {"java"},
+      autostart = true,
+      on_attach = mount_commands,
+      cmd = {
 
-if utils.executable('vscode-css-language-server') then
-  lspconfig.cssls.setup{
-    capabilities = capabilities,
-  }
-else
-  vim.notify("cssserver not found!", 'warn', {title = 'Nvim-config'})
-end
+        'java',
 
-if utils.executable('cssmodules-language-server') then
-  lspconfig.cssmodules_ls.setup{
-    capabilities = capabilities,
-    init_options = {
-        camelCase = 'dashes',
-    },
-  }
-else
-  vim.notify("cssmodules_ls not found!", 'warn', {title = 'Nvim-config'})
-end
+        '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        '-Dosgi.bundles.defaultStartLevel=4',
+        '-Declipse.product=org.eclipse.jdt.ls.core.product', '-Dlog.protocol=true',
+        '-Dlog.level=ALL',
+        '-Xms1g',
+        '--add-modules=ALL-SYSTEM',
+        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+
+        '-jar', jdtls_path .. "/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+
+        '-configuration', jdtls_path .. "/config_linux",
+
+        '-data', workspace_dir,
+      },
+
+      root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
+
+      -- Here you can configure eclipse.jdt.ls specific settings
+      settings = {
+        java = {
+        }
+      },
+
+      -- Language server `initializationOptions`
+      -- You need to extend the `bundles` with paths to jar files
+      -- if you want to use additional eclipse.jdt.ls plugins.
+      init_options = {
+        bundles = {
+          "/home/owhan/projects/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.40.0.jar"
+        }
+      },
+    }
+
+    -- Create autocmd for launching jdtls on java filetype, similar to lspconfig implementation
+    local lsp_group = vim.api.nvim_create_augroup('lspconfig', { clear = false })
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'java',
+      callback = function()
+        require("jdtls").start_or_attach(config)
+      end,
+      group = lsp_group,
+      desc = 'Checks whether server jdtls should start a new instance or attach to an existing one.',
+    })
+  end
+})
+
 
 -- Change diagnostic signs.
 fn.sign_define("DiagnosticSignError", { numhl = "LspDiagnosticsLineNrError" })
@@ -167,3 +196,4 @@ vim.diagnostic.config({
 lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
+

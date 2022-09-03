@@ -29,6 +29,14 @@ local mappings = {
     l = {function() require("lsp_lines").toggle() end, "Toggle diagnostic lines"},
     q = {function() vim.diagnostic.setqflist({open=true}) end , "Diagnostics"},
     c = {vim.lsp.buf.code_action, "Code actions"},
+  },
+  d = {
+    name = "Debug",
+    b = {function() require("dap").toggle_breakpoint() end, "Breakpoint"},
+    B = {function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, "Conditional breakpoint"},
+    c = {function() require("dap").continue() end, "Continue"},
+    i = {function() require("dap").step_into() end, "Step into"},
+    o = {function() require("dap").step_over() end, "Step over"},
   }
 }
 
