@@ -33,8 +33,8 @@ default_floating_border pixel 0
 # Set gap size
 gaps inner 15
 
-# Set background image
-exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/citylights.png
+# Set wallpaper
+exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/mountain.jpg
 
 # Start picom
 exec picom --experimental-backends &
@@ -44,7 +44,7 @@ exec picom --experimental-backends &
 exec_always --no-startup-id $HOME/.config/i3/scaling.sh
 
 # Start up polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 
 # Start XDG autostart .desktop files using dex. See also

@@ -56,6 +56,7 @@ cmp.setup({
 				emoji = "[Emoji]",
 				omni = "[Omni]",
 			}),
+      symbol_map = { Copilot = "🚀" },
 		}),
 	},
   window = {

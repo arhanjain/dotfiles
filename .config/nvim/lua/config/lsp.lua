@@ -134,6 +134,13 @@ mason_lspconfig.setup_handlers({
       -- Here you can configure eclipse.jdt.ls specific settings
       settings = {
         java = {
+          format = {
+            enabled = true,
+            settings = {
+              url = vim.fn.stdpath("config") .. "/styleguides/java.xml",
+              profile = "GoogleStyle",
+            },
+          },
         }
       },
 
@@ -142,7 +149,7 @@ mason_lspconfig.setup_handlers({
       -- if you want to use additional eclipse.jdt.ls plugins.
       init_options = {
         bundles = {
-          "/home/owhan/projects/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.40.0.jar"
+          vim.fn.stdpath("data") .. "/mason/packages/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.40.0.jar"
         }
       },
     }
