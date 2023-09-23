@@ -1,6 +1,13 @@
 vim.opt.termguicolors = true
 
-require "plugins"
-require "mappings"
+if vim.g.vscode then
+	require('vscode.settings')
+	-- do stuff
+else
+	-- pass
+end
+
+-- require "plugins"
+-- require "mappings"
 
 
