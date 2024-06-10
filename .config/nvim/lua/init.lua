@@ -1,13 +1,21 @@
 vim.opt.termguicolors = true
 
-if vim.g.vscode then
-	require('vscode.settings')
-	-- do stuff
-else
-	-- pass
-end
+-- -- Bootstap lazy.nvim
+-- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- if not vim.loop.fs_stat(lazypath) then
+--   vim.fn.system({
+--     "git",
+--     "clone",
+--     "--filter=blob:none",
+--     "https://github.com/folke/lazy.nvim.git",
+--     "--branch=stable", -- latest stable release
+--     lazypath,
+--   })
+-- end
+-- vim.opt.rtp:prepend(lazypath)
 
--- require "plugins"
--- require "mappings"
+require "plugins"
+require "mappings"
+
 
 

@@ -1,5 +1,10 @@
 local wk = require("which-key")
+
+vim.o.timeout = true
+vim.o.timeoutlen = 300
 wk.setup{}
+
+local terminal = require("nvterm.terminal")
 
 local mappings = {
   q = {":q<cr>", "Quit"},

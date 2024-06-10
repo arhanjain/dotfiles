@@ -1,6 +1,6 @@
-# loading scripting additions
-sudo yabai --load-sa
+#loading scripting additions
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 
 # padding
@@ -9,7 +9,6 @@ yabai -m config bottom_padding 8
 yabai -m config left_padding 8
 yabai -m config right_padding 8
 yabai -m config window_gap 8
-
 # mouse settings
 yabai -m config mouse_follows_focus on
 

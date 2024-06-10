@@ -22,6 +22,7 @@ require("packer").startup({
 
     -- LSP Kind: Pictograms for completion
     use {"onsails/lspkind-nvim", event = "VimEnter"}
+
     -- Autocompletion
     use {"hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]]}
 
@@ -38,7 +39,7 @@ require("packer").startup({
     use {"zbirenbaum/copilot.lua", event = {"VimEnter"}, config = [[require('config.copilot')]]}
     use {"zbirenbaum/copilot-cmp", module = "copilot_cmp"}
 
-    -- Mason language package manager
+    -- mason language package manager
     use { "williamboman/mason.nvim" }
     use { "williamboman/mason-lspconfig.nvim" }
 
@@ -52,9 +53,9 @@ require("packer").startup({
     use {"https://git.sr.ht/~whynothugo/lsp_lines.nvim", after = "nvim-lspconfig", config = [[require('lsp_lines').setup()]]}
 
     -- Debugging
-    use { "rcarriga/nvim-dap-ui"}
-    use { "mfussenegger/nvim-dap-python" }
-    use { "mfussenegger/nvim-dap", config = [[require('config.dap')]] }
+    -- use { "rcarriga/nvim-dap-ui"}
+    -- use { "mfussenegger/nvim-dap-python" }
+    -- use { "mfussenegger/nvim-dap", config = [[require('config.dap')]] }
 
     -- Treesitter (errors first launch if not installed)
     use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require('config.treesitter')]] }
@@ -65,7 +66,6 @@ require("packer").startup({
     -- Tree File Explorer
     use {
       'kyazdani42/nvim-tree.lua',
-      tag = 'nightly',
       requires = 'kyazdani42/nvim-web-devicons',
       config = [[require('config.nvim-tree')]],
     }
@@ -115,12 +115,18 @@ require("packer").startup({
     use { 'hermitmaster/nvim-kitty-navigator', run = 'cp kitty/* ~/.config/kitty/', config = [[require('nvim-kitty-navigator').setup{}]] }
 
     -- Themes
-    use { 'sainnhe/everforest', opt = true}
-    use { 'projekt0n/github-nvim-theme', opt = true }
+    -- Changing kitty background to match
+    use { "shaun-mathew/Chameleon.nvim", config = [[require('chameleon').setup()]] }
+    -- use { 'sainnhe/everforest', opt = true}
+    use { 'projekt0n/github-nvim-theme', opt = true}
     use {'EdenEast/nightfox.nvim', opt = true}
-
+    use {"neanias/everforest-nvim", config = [[require('everforest').setup()]] }
     -- Discord Rich Presence
     use 'andweeb/presence.nvim'
+    
+
+    -- Terminal Buffers
+    use { "NvChad/nvterm", config = [[require('nvterm').setup()]] }
 
     end,
     config = {
