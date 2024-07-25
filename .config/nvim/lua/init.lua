@@ -17,5 +17,7 @@ vim.opt.termguicolors = true
 require "plugins"
 require "mappings"
 
+vim.g.python3_host_prog = os.getenv("HOME") .. "/miniconda3/envs/nvim/bin/python"
+
 
 
