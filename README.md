@@ -47,15 +47,6 @@ No setup further setup is needed. This script will take care of checking and ins
 
 ## Roadmap
 
-- conda setup in .zshrc
-- automatic setup for zsh
-- any theme or aesthetic changes to the OS (orchid theme maybe)
-- find better suited colors for nvim hop (try to match the demo)
-- list all features & plugins in readme
-- update commands and shortcuts
-- change root dir for pyright
-- plugins to add
-  - hslens
-  - nvim asterisk
-- color correct venv for pure
-- fix packer not loading new plugins
+- Fix visualizer for spaces, stop reindexing
+- Rice the top bar
+- Visualize like stackline, but performant

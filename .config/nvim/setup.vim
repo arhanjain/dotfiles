@@ -1,10 +1,12 @@
 set mouse=a
 set number
 set signcolumn=yes:1
+set scrolloff=999
 
 " Add theme if respective package is installed
 " theme package, colorscheme
-let s:theme =  ["nightfox.nvim", "duskfox"]
+" let s:theme =  ["nightfox.nvim", "duskfox"]
+let s:theme =  ["everforest-nvim", "everforest"]
 
 let s:status = v:true
 try

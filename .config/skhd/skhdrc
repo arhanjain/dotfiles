@@ -1,0 +1,71 @@
+## Changing Focus
+
+# change window focus within a space
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+alt - p: yabai -m window --focus stack.prev
+alt - n: yabai -m window --focus stack.next
+
+
+# change focus between displays
+alt - s : yabai -m display --focus west
+alt - g : yabai -m display --focus east
+
+# flip layouts
+shift + alt - y : yabai -m space --mirror y-axis
+shift + alt - x : yabai -m space --mirror x-axis
+
+# toggle window float
+shift + alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# change space
+cmd - 1 : yabai -m space --focus web
+cmd - 2 : yabai -m space --focus code
+cmd - 3 : yabai -m space --focus social
+cmd - 4 : yabai -m space --focus music
+cmd - 5 : yabai -m space --focus 5
+cmd - 6 : yabai -m space --focus 6
+
+
+## Modifying Window Size
+
+# maximize a window
+shift + alt - m : yabai -m window --toggle zoom-fullscreen
+
+# balance out tree of windows
+shift + alt - e : yabai -m space --balance
+
+## Moving Windows Around
+
+# swap
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - h : yabai -m window --swap west
+shift + alt - l : yabai -m window --swap east
+
+# move window to display
+#shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
+#shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
+
+# move window to space
+shift + alt - p : yabai -m window --space prev --focus;
+shift + alt - n : yabai -m window --space next --focus;
+
+shift + alt - 1 : yabai -m window --space 1 --focus;
+shift + alt - 2 : yabai -m window --space 2 --focus;
+shift + alt - 3 : yabai -m window --space 3 --focus;
+shift + alt - 4 : yabai -m window --space 4 --focus;
+shift + alt - 5 : yabai -m window --space 5 --focus;
+shift + alt - 6 : yabai -m window --space 6 --focus;
+
+## Move Spaces
+
+#between displasy
+shift + alt - s : yabai -m space --display west
+shift + alt - g : yabai -m space --display east
+
+# Toggle layout mode
+ctrl + shift - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
+

@@ -1,0 +1,60 @@
+[
+    {
+		"command": "vscode-neovim.compositeEscape1",
+		"key": "j",
+		"when": "neovim.mode == insert && editorTextFocus",
+		"args": "j"
+	},
+	{
+		"command": "vscode-neovim.compositeEscape2",
+		"key": "k",
+		"when": "neovim.mode == insert && editorTextFocus",
+		"args": "k"
+	},
+    {
+		"key": "space",
+		"command": "whichkey.show",
+		"when": "sideBarFocus && !textInputFocus && !inputFocus"
+	},
+	{
+		"key": "shift+space",
+		"command": "whichkey.show",
+		"when": "textInputFocus || inputFocus"
+	},
+	
+	{
+		"key": "ctrl+j",
+		"command": "selectNextSuggestion",
+		"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+	},
+	{
+		"key": "ctrl+k",
+		"command": "selectPrevSuggestion",
+		"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+	},
+	{
+		"key": "ctrl+j",
+		"command": "workbench.action.quickOpenNavigateNext",
+		"when": "inQuickOpen"
+	},
+	
+	// Navigate out of explorer
+	{
+		"key": "ctrl+l",
+		"command": "workbench.action.navigateRight",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+	},
+
+	{
+		"key": "tab",
+		"command": "workbench.action.quickOpenNavigateNext",
+		"when": "inQuickOpen"
+  },
+
+  	// Hover 
+	  {
+		"key": "shift+k",
+		"command": "editor.action.showHover",
+		"when": "editorTextFocus"
+	  },
+]

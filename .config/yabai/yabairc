@@ -1,0 +1,61 @@
+#loading scripting additions
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+
+# padding
+yabai -m config top_padding 8
+yabai -m config bottom_padding 8
+yabai -m config left_padding 8
+yabai -m config right_padding 8
+yabai -m config window_gap 8
+# mouse settings
+yabai -m config mouse_follows_focus on
+
+# disable specific apps
+# yabai -m rule --add app="^System Settings$" manage=off
+
+
+# setup spaces
+function setup_spaces {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -z "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
+
+setup_spaces 1 web
+setup_spaces 2 code
+setup_spaces 3 social
+setup_spaces 4 music
+
+# default start spaces
+yabai -m rule --add app="^Spotify$" space=4
+yabai -m rule --add app="^Messages$" space=3
+yabai -m rule --add app="^Discord$" space=3
+yabai -m rule --add app="^Slack$" space=3
+
+# bsp, stack, or float
+yabai -m config layout bsp
+yabai -m config --space social layout stack
+
+yabai -m config window_placement second_child
+
+# for yabai indicator
+#yabai -m signal --add event=mission_control_exit action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=display_added action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=display_removed action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_created action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_destroyed action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_focused action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_moved action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_resized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_minimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+#yabai -m signal --add event=window_deminimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
