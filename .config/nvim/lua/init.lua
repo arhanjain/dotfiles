@@ -1,4 +1,20 @@
 vim.opt.termguicolors = true
+vim.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.clipboard = "unnamedplus"
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
+
 
 -- -- Bootstap lazy.nvim
 -- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -17,7 +33,7 @@ vim.opt.termguicolors = true
 require "plugins"
 require "mappings"
 
-vim.g.python3_host_prog = os.getenv("HOME") .. "/miniconda3/envs/nvim/bin/python"
+vim.g.python3_host_prog = os.getenv("HOME") .. "/micromamba/envs/nvim/bin/python"
 
 
 

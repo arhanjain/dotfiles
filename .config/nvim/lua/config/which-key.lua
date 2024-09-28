@@ -51,3 +51,4 @@ local opts = {
 }
 
 wk.register(mappings, opts)
+-- wk.add(mapping, opts)

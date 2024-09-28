@@ -71,6 +71,25 @@ mason_lspconfig.setup_handlers({
     }
   end,
 
+  ["basedpyright"] = function ()
+    lspconfig.basedpyright.setup({
+      on_attach = custom_attach,
+      capabilities = capabilities,
+      settings = {
+        basedpyright = {
+          typeCheckingMode = "standard",
+          -- analysis = {
+          --   extraPaths = {
+          --     "${workspaceFolder}/source/extensions/omni.isaac.lab_assets",
+          --     "${workspaceFolder}/source/extensions/omni.isaac.lab",
+          --     "${workspaceFolder}/source/extensions/omni.isaac.lab_tasks"
+          --   }
+          -- }
+        },
+      },
+    })
+  end,
+
   -- ["sumneko_lua"] = function ()
   ["lua_ls"] = function ()
     lspconfig.lua_ls.setup({

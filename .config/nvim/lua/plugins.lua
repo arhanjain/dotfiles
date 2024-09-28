@@ -37,7 +37,7 @@ require("packer").startup({
 
     -- Github Copilot
     use {"zbirenbaum/copilot.lua", event = {"VimEnter"}, config = [[require('config.copilot')]]}
-    use {"zbirenbaum/copilot-cmp", module = "copilot_cmp"}
+    use {"zbirenbaum/copilot-cmp", after = {"copilot.lua"}, config = function () require("copilot_cmp").setup() end}
 
     -- mason language package manager
     use { "williamboman/mason.nvim" }
@@ -77,9 +77,9 @@ require("packer").startup({
       requires = 'kyazdani42/nvim-web-devicons',
       config = [[require('config.lualine')]]}
 
-    -- Buffer Line
+    --Buffer Line
     use {'akinsho/bufferline.nvim',
-      tag = "v2.*",
+      tag = "*",
       requires = 'kyazdani42/nvim-web-devicons',
       config = [[require('config.bufferline')]],
     }
@@ -116,7 +116,7 @@ require("packer").startup({
 
     -- Themes
     -- Changing kitty background to match
-    use { "shaun-mathew/Chameleon.nvim", config = [[require('chameleon').setup()]] }
+    -- use { "shaun-mathew/Chameleon.nvim", config = [[require('chameleon').setup()]] }
     -- use { 'sainnhe/everforest', opt = true}
     use { 'projekt0n/github-nvim-theme', opt = true}
     use {'EdenEast/nightfox.nvim', opt = true}
@@ -127,6 +127,9 @@ require("packer").startup({
 
     -- Terminal Buffers
     use { "NvChad/nvterm", config = [[require('nvterm').setup()]] }
+
+    -- For formatting
+    use { "nvimtools/none-ls.nvim", config = [[require('config.nonels')]] }
 
     end,
     config = {
