@@ -61,9 +61,7 @@ require("packer").startup({
     use {"nvim-treesitter/nvim-treesitter", event = "BufEnter", run = ":TSUpdate", config = [[require('config.treesitter')]] }
 
     -- Web devicons required by multiple plugins
-    use {'kyazdani42/nvim-web-devicons'}
-
-    -- Tree File Explorer
+    use {'kyazdani42/nvim-web-devicons'} -- Tree File Explorer
     use {
       'kyazdani42/nvim-tree.lua',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -112,7 +110,7 @@ require("packer").startup({
 
     -- Kitty navigation
     -- use { 'knubie/vim-kitty-navigator', run = "cp ./*.py ~/.config/kitty/" }
-    use { 'hermitmaster/nvim-kitty-navigator', run = 'cp kitty/* ~/.config/kitty/', config = [[require('nvim-kitty-navigator').setup{}]] }
+    -- use { 'hermitmaster/nvim-kitty-navigator', run = 'cp kitty/* ~/.config/kitty/', config = [[require('nvim-kitty-navigator').setup{}]] }
 
     -- Themes
     -- Changing kitty background to match
@@ -123,13 +121,22 @@ require("packer").startup({
     use {"neanias/everforest-nvim", config = [[require('everforest').setup()]] }
     -- Discord Rich Presence
     use 'andweeb/presence.nvim'
-    
+
 
     -- Terminal Buffers
     use { "NvChad/nvterm", config = [[require('nvterm').setup()]] }
 
     -- For formatting
-    use { "nvimtools/none-ls.nvim", config = [[require('config.nonels')]] }
+    -- use { "nvimtools/none-ls.nvim", config = [[require('config.nonels')]] }
+
+    -- pane navigation, between nvim and kitty
+    use({
+		'mrjones2014/smart-splits.nvim', 
+		run = './kitty/install-kittens.bash', 
+		config = [[require('config.smart-splits')]],
+		tag = 'v1.5.0'
+	})
+
 
     end,
     config = {
