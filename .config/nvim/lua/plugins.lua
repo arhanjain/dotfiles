@@ -126,6 +126,12 @@ require("packer").startup({
     -- Terminal Buffers
     use { "NvChad/nvterm", config = [[require('nvterm').setup()]] }
 
+    -- Markdown Preview
+    use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+    })
+
     -- For formatting
     -- use { "nvimtools/none-ls.nvim", config = [[require('config.nonels')]] }
 
