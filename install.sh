@@ -128,6 +128,51 @@ install_uv() {
     fi
 }
 
+install_zsh() {
+    echo "Setting up ZSH..."
+
+    # Check if Zsh is installed
+    if ! command -v zsh &>/dev/null; then
+        echo "Zsh is not installed. Installing..."
+        if [[ "$(uname)" == "Darwin" ]]; then
+            brew install zsh
+        elif [[ "$(uname)" == "Linux" ]]; then
+            sudo apt update && sudo apt install -y zsh
+        else
+            echo "Unsupported OS for Zsh installation."
+            return 1
+        fi
+    else
+        echo "Zsh is already installed."
+    fi
+
+    # Set Zsh as the default shell
+    if [[ "$SHELL" != "$(command -v zsh)" ]]; then
+        echo "Changing default shell to Zsh..."
+        chsh -s "$(command -v zsh)"
+    fi
+
+    ZSHRC="$HOME/.zshrc"
+     if [[ -f "$ZSHRC" ]]; then
+        mv "$ZSHRC" "$HOME/.zshrc.back"
+        echo "Backed up existing .zshrc to .zshrc.back"
+    fi
+
+    ln -s "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+
+    # Theme
+    curl -sS https://starship.rs/install.sh | sh
+
+    # Install Zap (Zsh plugin manager)
+    if [[ ! -d "$HOME/.zap" ]]; then
+        echo "Installing Zap..."
+        zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) -k --branch release-v1
+    else
+        echo "Zap is already installed."
+    fi
+    
+}
+
 confirm_platform() {
     local platform
     if [[ "$(uname)" == "Darwin" ]]; then
@@ -170,6 +215,7 @@ main_menu() {
         install_neovim
         install_kitty
         install_lazygit
+        install_zsh
     else
         echo "Exiting due to unsupported platform or user cancellation."
         exit 1
