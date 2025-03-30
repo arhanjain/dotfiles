@@ -35,6 +35,11 @@ install_node() {
 }
 
 install_neovim() {
+
+    if command -v nvim &>/dev/null; then
+        echo "Neovim is already installed."
+        return 0
+    fi
     echo "Installing Neovim..."
 
     # Deps
@@ -86,7 +91,13 @@ install_neovim() {
 }
 
 install_lazygit() {
+
+  if command -v lazygit &>/dev/null; then
+      echo "Lazygit is already installed."
+      return 0
+  fi
   echo "Installing Lazygit..."
+
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
   curl -Ls "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" | tar xz  
   mv lazygit "$HOME/.local/bin/"
@@ -94,6 +105,11 @@ install_lazygit() {
 }
 
 install_kitty() {
+
+    if [[ -d "$HOME/.local/kitty.app" ]]; then
+        echo "Kitty is already installed."
+        return 0
+    fi
     echo "Installing Kitty terminal..."
 
     # Run the official Kitty installer
@@ -112,40 +128,53 @@ install_uv() {
     fi
 }
 
-# Main script menu
-main_menu() {
-    echo "Select what you want to install:"
-    echo "1) Neovim "
-    echo "2) Kitty"
-    echo "3) Lazygit"
-    echo "4) All"
-    echo "5) Exit"
+confirm_platform() {
+    local platform
+    if [[ "$(uname)" == "Darwin" ]]; then
+        platform="macOS"
+        platform_code=0
+    elif [[ "$(uname)" == "Linux" ]]; then
+        platform="Linux"
+        platform_code=1
+    else
+        echo "Unsupported platform: $(uname)"
+        return 2
+    fi
 
-    read -p "Enter your choice [1-4]: " choice
-    case "$choice" in
-        1)
-            install_neovim
+    echo "Detected platform: $platform"
+    read -p "Do you want to continue? (y/N) " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            echo "Proceeding..."
+            return $platform_code
             ;;
-        2)
-            install_kitty
-            ;;
-        3) 
-            install_lazygit
-            ;;
-        4)
-            install_neovim
-            install_kitty
-            ;;
-        5)
-            echo "Exiting."
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice. Please select a valid option."
-            main_menu
+        *)  
+            echo "Aborted."
+            return 2
             ;;
     esac
 }
-a
+
+
+# Main script menu
+main_menu() {
+    confirm_platform
+    platform_code=$?
+
+    if [[ $platform_code -eq 0 ]]; then
+        # Mac Case
+        echo "this is not implemented yet!"
+    elif [[ $platform_code -eq 1 ]]; then
+        # Linux Case
+        install_uv
+        install_neovim
+        install_kitty
+        install_lazygit
+    else
+        echo "Exiting due to unsupported platform or user cancellation."
+        exit 1
+    fi
+}
+
 # Start the menu
 main_menu
