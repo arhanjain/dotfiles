@@ -32,8 +32,8 @@ require("packer").startup({
     use {"hrsh7th/cmp-buffer", after = "nvim-cmp"}
 
 
-    use({"SirVer/ultisnips", event = 'InsertEnter',})
-    use {"quangnguyen30192/cmp-nvim-ultisnips", after = {'nvim-cmp', 'ultisnips'}}
+    -- use({"SirVer/ultisnips", event = 'InsertEnter',})
+    -- use {"quangnguyen30192/cmp-nvim-ultisnips", after = {'nvim-cmp', 'ultisnips'}}
 
     -- Github Copilot
     use {"zbirenbaum/copilot.lua", event = {"VimEnter"}, config = [[require('config.copilot')]]}
