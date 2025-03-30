@@ -33,7 +33,7 @@ vim.g.clipboard = {
 require "plugins"
 require "mappings"
 
-vim.g.python3_host_prog = os.getenv("HOME") .. "/micromamba/envs/nvim/bin/python"
+vim.g.python3_host_prog = os.getenv("HOME") .. "/.local/nvim-linux-x86_64/.venv/bin/python"
 
 
 
