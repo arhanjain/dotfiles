@@ -15,4 +15,5 @@ just some files
 - Lazygit
 - uv (python package & project manager)
 - npm & n (node version manager)
+- ZSH (starship theme, zap plugin manager)
 
